@@ -14,6 +14,13 @@ public class Voto {
 		this.dataEsame = dataEsame;
 	}
 	
+	//CopyConstructor (crea una copia di v)
+	public Voto(Voto v) {
+		this.nomeCorso = v.nomeCorso;
+		this.punti = v.punti;
+		this.dataEsame = v.dataEsame;
+	}
+	
 	public String getNomeCorso() {
 		return nomeCorso;
 	}
@@ -32,6 +39,21 @@ public class Voto {
 	public void setDataEsame(LocalDate dataEsame) {
 		this.dataEsame = dataEsame;
 	}
+	
+	public boolean isDuplicato(Voto altro) {
+		return this.getNomeCorso().equals(altro.getNomeCorso()) && this.getPunti()== altro.getPunti();
+		
+	}
+	
+	public boolean isConflitto(Voto altro) {
+		return this.getNomeCorso().equals(altro.getNomeCorso()) && this.getPunti()!= altro.getPunti();
+		
+	}
+	
+	public Voto clone() {
+		return new Voto(this.nomeCorso,this.getPunti(),this.getDataEsame());
+	}
+
 
 	@Override
 	public String toString() {

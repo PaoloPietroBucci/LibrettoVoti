@@ -18,8 +18,12 @@ public class Libretto {
 	 */
 	
 	public boolean add(Voto v) {
-		return this.voti.add(v); //delga cieca (nessun controllo)
-						  //ma il metodo add di Libretto delega l'aggiunta ad add della lista
+		if (this.esisteVotoDuplicato(v) || this.esisteVotoInConflitto(v)){
+			throw new IllegalArgumentException("Voto errato: "+ v);
+		}
+		else return this.voti.add(v);
+		
+		
 	}
 	
 	public void stampa() {
@@ -44,13 +48,47 @@ public class Libretto {
 		return null;
 		//throw new RuntimeException ("Voto non trovato");
 	}
-	public boolean esisteVoto (Voto nuovo) {
+	public boolean esisteVotoDuplicato (Voto nuovo) {
 		for (Voto v : this.voti) {
-			if (v.getNomeCorso().equals(nuovo.getNomeCorso()) && v.getPunti()==nuovo.getPunti()) {
+			if (v.isDuplicato(nuovo)) {
 				return true;
 			}
 		}
 		return false;
+	}
+	
+	public boolean esisteVotoInConflitto(Voto nuovo) {
+		for (Voto v : this.voti) {
+			if (v.isConflitto(nuovo)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	/**metodo di factory
+	 * 
+	 * @param Libretto migliorato
+	 * @return Libretto
+	 */
+	public Libretto librettoMigliorato() {
+		Libretto migliore = new Libretto();
+		migliore.voti= new ArrayList<>();
+		for (Voto v : this.voti ) {
+			migliore.voti.add(v.clone());
+		//copyconstructo migliore.voti.add(new Voto(v)	
+		}
+		for (Voto v : migliore.voti) {
+			v.setPunti(v.getPunti()+2);
+		}
+		return migliore;
+	}
+	
+	public void cancellaVotiInferiori(int punti) {
+		for (Voto v : this.voti) {
+			if (v.getPunti() < punti){
+				this.voti.remove(v);
+			}
+		}
 	}
 
 }

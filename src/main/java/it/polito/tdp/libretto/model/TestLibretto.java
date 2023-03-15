@@ -23,9 +23,27 @@ public class TestLibretto {
 		Voto a1bis= new Voto("Analisi I" , 29, LocalDate.of(2021, 3, 17));
 		Voto a1ter= new Voto("Analisi I" , 30, LocalDate.of(2021, 3, 17));
 		
-		System.out.println(a1bis + "è duplicato"+" "+ lib.esisteVoto(a1bis));
+		System.out.println(a1bis + "è duplicato"+" "+ lib.esisteVotoDuplicato(a1bis));
 		System.out.println(a1ter + "è duplicato"+" " +
-		lib.esisteVoto(a1ter));
+		lib.esisteVotoDuplicato(a1ter));
+		
+		try {
+			lib.add(new Voto("Informatica", 25, LocalDate.of(2022, 3, 5)));
+			} 
+			catch (IllegalArgumentException e) {
+				System.out.print("Errore nell'inserimento voto.");
+				System.out.print(e.getMessage());
+			}
+		
+		Libretto migliore =  lib.librettoMigliorato();
+		System.out.println("LIBRETTO MIGLIORE: "+'\n');
+		migliore.stampa();
+		System.out.println("LIBRETTO VECCHIO: "+'\n');
+		lib.stampa();
+		
+		lib.cancellaVotiInferiori(24);
+		System.out.println("LIBRETTO CON VOTI MAGGIORI DI 24: "+'\n');
+		lib.stampa();
 	}
 
 }
