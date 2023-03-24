@@ -59,6 +59,7 @@ public class Voto {
 	public String toString() {
 		return "Voto [nomeCorso=" + nomeCorso + ", punti=" + punti + ", dataEsame=" + dataEsame + "]";
 	}
+
 	
 	
 

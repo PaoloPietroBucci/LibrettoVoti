@@ -11,7 +11,8 @@ public class TestLibretto {
 		lib.add(new Voto("Analisi I", 29, LocalDate.of(2021, 2, 15)));
 		lib.add(new Voto("Analisi II", 21, LocalDate.of(2022, 6, 10)));
 		lib.add(new Voto("Informatica", 25, LocalDate.of(2022, 3, 11)));
-		
+		lib.add(new Voto("Fisica I", 22, LocalDate.of(2022, 6, 2)));
+
 		lib.stampa();
 		
 		lib.stampaPerVoto(25);
@@ -41,9 +42,13 @@ public class TestLibretto {
 		System.out.println("LIBRETTO VECCHIO: "+'\n');
 		lib.stampa();
 		
-		lib.cancellaVotiInferiori(24);
+		/*lib.cancellaVotiInferiori(24);
 		System.out.println("LIBRETTO CON VOTI MAGGIORI DI 24: "+'\n');
-		lib.stampa();
+		lib.stampa();*/
+		System.out.println("LIBRETTO ORDINATO PER NOME: "+'\n');
+		lib.ordinaLibrettoPerNome().stampa();
+		System.out.println("LIBRETTO ORDINATO PER VOTO: "+'\n');
+		lib.ordinaLibrettoPerVoto().stampa();
 	}
 
 }

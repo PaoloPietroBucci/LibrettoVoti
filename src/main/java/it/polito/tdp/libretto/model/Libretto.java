@@ -1,6 +1,7 @@
 package it.polito.tdp.libretto.model;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class Libretto {
@@ -84,11 +85,35 @@ public class Libretto {
 	}
 	
 	public void cancellaVotiInferiori(int punti) {
+		List<Voto> daCancellare = new ArrayList<Voto>();
 		for (Voto v : this.voti) {
 			if (v.getPunti() < punti){
-				this.voti.remove(v);
+				daCancellare.add(v);
 			}
 		}
+		this.voti.removeAll(daCancellare);
 	}
+	
+	public Libretto ordinaLibrettoPerNome() {
+		Libretto ordinato = new Libretto();
+		ordinato.voti= new ArrayList<>(this.voti);
+		
+		ordinato.voti.sort(new ComparatorByName());
+		
+		return ordinato;
+	}
+	public Libretto ordinaLibrettoPerVoto() {
+		Libretto ordinato = new Libretto();
+		ordinato.voti= new ArrayList<>(this.voti);
+		
+		ordinato.voti.sort(new Comparator<Voto>(){
+			@Override
+			public int compare(Voto o1, Voto o2) {
+				
+				return o2.getPunti()-o1.getPunti();
+			}});
+		
+		return ordinato;
+		}
 
 }
